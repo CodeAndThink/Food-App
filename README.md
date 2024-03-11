@@ -1,2 +1,2 @@
 # Food-App
-Food application demo when using MVVM partern
+Food application demo when using MVVM pattern
