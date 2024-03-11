@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.notification.NotificationFragment">
+    <TextView
+        android:id="@+id/notification_title_topbar"
+        android:text="@string/notification_sceen"
+        android:textColor="@color/white"
+        android:background="@color/orange"
+        style="@style/fragment_title"
+        android:elevation="10dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notification_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/notification_title_topbar"
+        android:padding="10dp"/>
+</RelativeLayout>

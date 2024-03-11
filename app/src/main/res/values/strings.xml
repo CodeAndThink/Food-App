@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Food app</string>
+    <string name="notification_sceen">Notification</string>
+    <string name="inbag_screen">Shopping Bag</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="login_btn">Login</string>
+    <string name="register_btn">Register</string>
+    <string name="delete_btn">Delete account</string>
+    <string name="update_btn">Update</string>
+    <string name="logout_btn">Log out</string>
+    <string name="select_btn">Select</string>
+    <string name="agree_btn">Purchase</string>
+    <string name="register_link">Having no account? Register now!</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_displayname">Display Name</string>
+    <string name="hint_repassword">RePassword</string>
+    <string name="error_enter_account">Wrong username or password!</string>
+    <string name="invalid_username">Username invalid!</string>
+    <string name="invalid_password">Password invalid!</string>
+    <string name="invalid_displayname">Display Name invalid!</string>
+    <string name="reenter_password_not_match">Reenter password not match </string>
+    <string name="login_false">Login false!</string>
+    <string name="login_success">Login successfully!</string>
+    <string name="register_false">Register false!</string>
+    <string name="register_success">Register successfully!</string>
+    <string name="update_false">Update false!</string>
+    <string name="update_success">Update successfully!</string>
+    <string name="data_link">https://chatapp-41799-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="sample_content">This is context sample!</string>
+    <string name="more_detail">More detail!</string>
+    <string name="msg_token_fmt">%1$s</string>
+</resources>

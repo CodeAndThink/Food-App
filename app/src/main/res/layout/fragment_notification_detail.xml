@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fooddetail.FoodDetailFragment"
+    android:padding="10dp"
+    android:background="@color/orange">
+    <ImageButton
+        android:id="@+id/Back_btn"
+        style="@style/option_button"
+        android:src="@drawable/baseline_turn_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rough_button"
+        android:elevation="10dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/Back_btn"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="25dp"
+        android:outlineSpotShadowColor="@color/white"
+        android:clickable="false"
+        android:elevation="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/notification_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Food name"
+                android:textSize="30dp"
+                android:maxLines="2"/>
+            <TextView
+                android:id="@+id/notification_detail_context"
+                android:layout_below="@id/notification_detail_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="This is the context!"
+                android:textSize="25dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

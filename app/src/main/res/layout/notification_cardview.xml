@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginTop="10dp"
+    android:elevation="10dp"
+    android:background="@color/very_light_orange">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@color/very_light_orange">
+        <ImageView
+            android:id="@+id/notification_card_image"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/pizza_notification"
+            android:elevation="10dp"/>
+        <TextView
+            android:id="@+id/notification_title"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:maxHeight="130dp"
+            android:textSize="25dp"
+            android:layout_toEndOf="@id/notification_card_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"/>
+        <TextView
+            android:id="@+id/notification_date"
+            android:text="01/01/2024"
+            android:textColor="@color/black"
+            android:maxHeight="130dp"
+            android:textSize="20dp"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="textEnd"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"/>
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

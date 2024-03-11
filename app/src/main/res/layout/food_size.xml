@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_margin="5dp">
+    <TextView
+        android:id="@+id/food_size_card"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="S"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:background="@drawable/rough_button"/>
+</com.google.android.material.card.MaterialCardView>

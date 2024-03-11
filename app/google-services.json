@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "990213496393",
+    "firebase_url": "https://chatapp-41799-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "chatapp-41799",
+    "storage_bucket": "chatapp-41799.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990213496393:android:381e225928c09d8e9e6998",
+        "android_client_info": {
+          "package_name": "com.truong.foodapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBETYaVbjG8TJU7lUHiWmSxbkuo-T4WcKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
