@@ -26,8 +26,11 @@
     <string name="register_success">Register successfully!</string>
     <string name="update_false">Update false!</string>
     <string name="update_success">Update successfully!</string>
+    <string name="order_success">Order successfully!</string>
+    <string name="order_false">Order error!</string>
     <string name="data_link">https://chatapp-41799-default-rtdb.asia-southeast1.firebasedatabase.app</string>
     <string name="sample_content">This is context sample!</string>
     <string name="more_detail">More detail!</string>
     <string name="msg_token_fmt">%1$s</string>
+    <string name="total">Total:</string>
 </resources>

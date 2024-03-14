@@ -20,6 +20,8 @@ import com.truong.foodapplication.data.model.Food;
 import com.truong.foodapplication.data.model.Notification;
 import com.truong.foodapplication.ui.home.HomeAdapter;
 
+import java.security.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +57,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.imageView.setImageResource(R.drawable.default_broken_image);
         }
         holder.notificationName.setText(item.getName());
-        holder.notificationDate.setText(String.valueOf(item.getDate()));
+        // Đối tượng Timestamp từ Firestore
+        Date date = item.getDate();
+
+        // Định dạng lại Date thành chuỗi "dd/mm/yyyy"
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+        holder.notificationDate.setText(dateString);
     }
 
     // Trả về số lượng mục trong danh sách

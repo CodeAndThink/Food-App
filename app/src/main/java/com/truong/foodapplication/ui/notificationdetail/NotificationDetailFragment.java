@@ -73,7 +73,6 @@ public class NotificationDetailFragment extends Fragment {
                 if (notificationList != null){
                     binding.notificationDetailName.setText(notificationList.get(position).getName());
                     binding.notificationDetailContext.setText(notificationList.get(position).getContext());
-                    Log.d(TAG, "Data: " + notificationList.get(position));
                 } else {
                     Log.e(TAG, "Chưa nhận được dữ liệu!");
                 }

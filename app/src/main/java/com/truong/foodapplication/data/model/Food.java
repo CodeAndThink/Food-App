@@ -29,7 +29,8 @@ public class Food {
     private String foodName;
     private List<String> foodPrice;
     private List<String> foodSize;
-
+    private String foodUrl;
+    private String foodSmallUrl;
     public String getFoodSmallUrl() {
         return foodSmallUrl;
     }
@@ -38,8 +39,6 @@ public class Food {
         this.foodSmallUrl = foodSmallUrl;
     }
 
-    private String foodSmallUrl;
-
     public String getFoodUrl() {
         return foodUrl;
     }
@@ -47,8 +46,6 @@ public class Food {
     public void setFoodUrl(String foodUrl) {
         this.foodUrl = foodUrl;
     }
-
-    private String foodUrl;
 
     public String getFoodName() {
         return foodName;

@@ -9,17 +9,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.truong.foodapplication.data.model.Food;
 import com.truong.foodapplication.data.model.Notification;
+import com.truong.foodapplication.data.model.PurchaseItem;
+import com.truong.foodapplication.data.model.User;
 
 import java.util.Date;
 import java.util.ArrayList;
@@ -29,7 +34,6 @@ public class FoodsRepository {
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
-
     private MutableLiveData<List<Food>> foods;
     private MutableLiveData<List<Notification>> notifications;
 
@@ -87,7 +91,7 @@ public class FoodsRepository {
                             }
                             if (notificationList != null){
                                 notifications.setValue(notificationList);
-                                Log.e(TAG, "Dữ liệu: " + notificationList.get(0).getName() + notificationList.get(0).getContext() + notificationList.get(0).getDate() + notificationList.get(0).getImageUrl());
+                                Log.e(TAG, "Get data successfully!" );
                             }else {
                                 Log.e(TAG, "No data!", task.getException());
                             }
@@ -96,5 +100,25 @@ public class FoodsRepository {
                         }
                     }
                 });
+    }
+    public LiveData<Boolean> registerNewPayment(PurchaseItem items) {
+        MutableLiveData<Boolean> state = new MutableLiveData<>();
+        db.collection("orders_history")
+                .add(items)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        state.setValue(true);
+                        Log.d(TAG, "Payment successfully! ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        state.setValue(false);
+                        Log.w(TAG, "Error adding payment!", e);
+                    }
+                });
+        return state;
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.truong.foodapplication.data.model.Food;
+import com.truong.foodapplication.data.model.Item;
 import com.truong.foodapplication.data.repository.FoodsRepository;
 import com.truong.foodapplication.mainviewmodel.BaseMainActivityViewModel;
 
@@ -38,5 +39,9 @@ public class FoodDetailViewModel extends ViewModel {
             }
         });
         return position;
+    }
+    public void setPayment(String name, String size, int quantity, double price){
+        Item item = new Item(name, size, quantity, price);
+        baseMainActivityViewModel.addPurchaseItems(item);
     }
 }

@@ -4,58 +4,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.purchase.PurchaseFragment"
-    android:padding="10dp"
-    android:background="@color/orange">
+    android:padding="10dp">
     <RelativeLayout
+        android:id="@+id/purchase_screen_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/very_light_orange">
+        <ImageButton
+            android:id="@+id/Back_btn"
+            style="@style/option_button"
+            android:src="@drawable/baseline_turn_back"
+            android:layout_centerVertical="true"
+            android:elevation="10dp"/>
+        <TextView
+            style="@style/fragment_title"
+            android:text="@string/inbag_screen"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/purchase_recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/very_light_orange">
-        <RelativeLayout
-            android:id="@+id/purchase_screen_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/Back_btn"
-                style="@style/option_button"
-                android:src="@drawable/baseline_turn_back"
-                android:layout_centerVertical="true"
-                android:elevation="10dp"/>
-            <TextView
-                style="@style/fragment_title"
-                android:text="@string/inbag_screen"
-                android:background="@color/white"/>
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/purchase_recycleview"
-            android:layout_below="@id/purchase_screen_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/purchase_btn"/>
-
+        android:layout_below="@id/purchase_screen_toolbar"
+        android:layout_above="@id/purchase_price_label"/>
+    <TextView
+        android:id="@+id/purchase_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@id/purchase_screen_bottom_bar"/>
+    <TextView
+        android:id="@+id/purchase_price_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/purchase_price_label"
+        android:textAlignment="textEnd"
+        android:paddingEnd="10sp"
+        android:text="0.0"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@id/purchase_screen_bottom_bar"/>
+    <RelativeLayout
+        android:id="@+id/purchase_screen_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/very_light_orange"
+        android:padding="10dp">
         <Button
             android:id="@+id/purchase_btn"
             style="@style/big_button"
-            android:layout_above="@id/cancel_purchase_btn"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:elevation="10dp"
             android:text="@string/agree_btn" />
 
         <Button
             android:id="@+id/cancel_purchase_btn"
             style="@style/big_button"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@id/purchase_btn"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:text="@string/cancel_btn"
             android:elevation="10dp"/>
     </RelativeLayout>
-
 </RelativeLayout>

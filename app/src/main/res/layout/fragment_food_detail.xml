@@ -20,6 +20,13 @@
         android:src="@drawable/baseline_turn_back"
         android:elevation="10dp"
         android:background="@drawable/rough_button"/>
+    <ImageButton
+        android:id="@+id/shopping_bag_btn"
+        style="@style/option_button"
+        android:src="@drawable/shopping"
+        android:elevation="10dp"
+        android:background="@drawable/rough_button"
+        android:layout_alignParentRight="true"/>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="340dp"
@@ -48,7 +55,7 @@
                 android:nestedScrollingEnabled="false"/>
             <RelativeLayout
                 android:id="@+id/food_detail_price_cal"
-                android:layout_above="@id/food_detail_agreement"
+                android:layout_above="@id/food_detail_agreement_btn"
                 android:background="@drawable/border_background"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -107,13 +114,9 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/food_detail_agreement"
+                android:id="@+id/food_detail_agreement_btn"
                 style="@style/big_button"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/rough_button"
                 android:elevation="10dp"
                 android:text="@string/agree_btn" />

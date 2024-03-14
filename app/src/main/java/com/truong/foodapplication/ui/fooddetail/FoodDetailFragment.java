@@ -33,6 +33,7 @@ import com.truong.foodapplication.data.model.Food;
 import com.truong.foodapplication.databinding.FragmentFoodDetailBinding;
 import com.truong.foodapplication.mainviewmodel.BaseMainActivityViewModel;
 import com.truong.foodapplication.ui.home.HomeFragment;
+import com.truong.foodapplication.ui.purchase.PurchaseFragment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class FoodDetailFragment extends Fragment {
     private FragmentFoodDetailBinding binding;
     private FoodDetailAdapter foodDetailAdapter;
     private int quantity = 1;
+    private Food mFood;
+    private int size_position;
     private int position;
     private String mSizePrice = "0.0";
 
@@ -84,6 +87,7 @@ public class FoodDetailFragment extends Fragment {
             public void onChanged(List<Food> foods) {
                 if (foods != null){
                     // Cập nhật dữ liệu của adapter khi danh sách foods thay đổi
+                    mFood = foods.get(position);
                     Context context = binding.getRoot().getContext();
                     Resources resources = context.getResources();
                     int resourceId = resources.getIdentifier(foods.get(position).getFoodSmallUrl(), "drawable", context.getPackageName());
@@ -104,6 +108,8 @@ public class FoodDetailFragment extends Fragment {
         mSizePrice = mPrice.get(i);
         quantity = 1;
         binding.foodDetailPrice.setText(mSizePrice);
+        binding.foodDetailQuatity.setText(String.valueOf(quantity));
+        size_position = i;
     }
 
     @Override
@@ -137,6 +143,13 @@ public class FoodDetailFragment extends Fragment {
         binding.BackBtn.setOnClickListener(v -> {
             HomeFragment homeFragment = HomeFragment.newInstance();
             changeFragment(homeFragment);
+        });
+        binding.shoppingBagBtn.setOnClickListener(v -> {
+            PurchaseFragment purchaseFragment = PurchaseFragment.newInstance();
+            changeFragment(purchaseFragment);
+        });
+        binding.foodDetailAgreementBtn.setOnClickListener(v -> {
+            mViewModel.setPayment(mFood.getFoodName(), mFood.getFoodSize().get(size_position), quantity, Double.parseDouble(mFood.getFoodPrice().get(size_position)));
         });
     }
     public void changeFragment(Fragment fragment){

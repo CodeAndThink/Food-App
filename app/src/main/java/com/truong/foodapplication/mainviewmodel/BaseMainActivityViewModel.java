@@ -1,4 +1,5 @@
 package com.truong.foodapplication.mainviewmodel;
+import static android.view.View.generateViewId;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.util.Log;
@@ -10,12 +11,18 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.truong.foodapplication.data.model.Food;
+import com.truong.foodapplication.data.model.Item;
 import com.truong.foodapplication.data.model.Notification;
+import com.truong.foodapplication.data.model.PurchaseItem;
 import com.truong.foodapplication.data.repository.FoodsRepository;
 import com.truong.foodapplication.data.repository.UserRepository;
 import com.truong.foodapplication.ui.BaseMainActivity;
 import com.truong.foodapplication.data.model.User;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BaseMainActivityViewModel extends ViewModel {
@@ -24,6 +31,7 @@ public class BaseMainActivityViewModel extends ViewModel {
     private MutableLiveData<List<Food>> sharedFoodData = new MutableLiveData<>();
     private MutableLiveData<Integer> position = new MutableLiveData<>();
     private MutableLiveData<List<Notification>> sharedNotificationData = new MutableLiveData<>();
+    private MutableLiveData<List<Item>>  purchaseItems = new MutableLiveData<>(new ArrayList<>());
     private FoodsRepository foodsRepository;
 
     public BaseMainActivityViewModel(BaseMainActivity baseMainActivity, User user) {
@@ -38,6 +46,33 @@ public class BaseMainActivityViewModel extends ViewModel {
         setSharedFoodData();
         setSharedNotificationData();
     }
+    public LiveData<Boolean> setPurchasePayment(){
+        MutableLiveData<Boolean> state = new MutableLiveData<>();
+        List<Item> items = purchaseItems.getValue(); // Lấy giá trị hiện tại của purchaseItems
+        if (items != null && !items.isEmpty()) {
+            PurchaseItem purchaseItem = new PurchaseItem(getSharedUserData().getValue().getUserName(), items, Timestamp.from(Instant.now()));
+            foodsRepository.registerNewPayment(purchaseItem).observeForever(new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    state.setValue(aBoolean);
+                }
+            });
+        }
+        return state;
+    }
+    public void setPurchaseItems(List<Item> purchaseItems){
+        clearPurchaseItem();
+        this.purchaseItems.setValue(new ArrayList<>(purchaseItems));
+    }
+    public void addPurchaseItems(Item item){
+        this.purchaseItems.getValue().add(item);;
+    }
+    public void clearPurchaseItem(){
+        this.purchaseItems.getValue().clear();
+    }
+    public LiveData<List<Item>> getPurchaseItems(){
+        return purchaseItems;
+    }
     public void setSharedUserData(User user) {
         sharedData.setValue(user);
     }
@@ -49,7 +84,6 @@ public class BaseMainActivityViewModel extends ViewModel {
             @Override
             public void onChanged(List<Notification> notifications) {
                 sharedNotificationData.setValue(notifications);
-                Log.d(TAG, "Nhan du lieu la: " + notifications);
             }
         });
     }
@@ -61,7 +95,6 @@ public class BaseMainActivityViewModel extends ViewModel {
             @Override
             public void onChanged(List<Food> foods) {
                 sharedFoodData.setValue(foods);
-                Log.d(TAG, "Nhan du lieu la: " + foods);
             }
         });
     }
