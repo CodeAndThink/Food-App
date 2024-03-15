@@ -78,6 +78,10 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseAdapter.ViewHo
             holder.quantity.setText(String.valueOf(mquantity));
             holder.price.setText(formattedNumber);
         });
+        holder.delete.setOnClickListener(v -> {
+            mData.remove(position);
+            purchaseViewModel.setSharedPurchaseItem(mData);
+        });
     }
 
     // Trả về số lượng mục trong danh sách

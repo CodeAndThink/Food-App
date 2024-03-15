@@ -49,7 +49,9 @@ public class Item {
                 ", foodprice=" + foodprice +
                 '}';
     }
+    public Item(){
 
+    }
     private String foodName;
     private String foodSize;
     private int quatity;

@@ -1,6 +1,5 @@
 package com.truong.foodapplication.data.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class PurchaseItem {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -35,9 +34,17 @@ public class PurchaseItem {
         this.items = items;
         this.date = date;
     }
+    public PurchaseItem(){
+
+    }
 
     public PurchaseItem(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "Items=" + items;
     }
 
     private String userName;

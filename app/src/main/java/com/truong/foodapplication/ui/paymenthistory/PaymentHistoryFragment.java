@@ -1,14 +1,10 @@
-package com.truong.foodapplication.ui.notificationdetail;
-
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+package com.truong.foodapplication.ui.paymenthistory;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,68 +13,70 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.truong.foodapplication.R;
-import com.truong.foodapplication.data.model.Food;
-import com.truong.foodapplication.data.model.Notification;
-import com.truong.foodapplication.databinding.FragmentFoodDetailBinding;
-import com.truong.foodapplication.databinding.FragmentNotificationDetailBinding;
+import com.truong.foodapplication.data.model.Item;
+import com.truong.foodapplication.data.model.PurchaseItem;
+import com.truong.foodapplication.databinding.FragmentPaymentHistoryBinding;
+import com.truong.foodapplication.databinding.FragmentPurchaseBinding;
 import com.truong.foodapplication.mainviewmodel.BaseMainActivityViewModel;
-import com.truong.foodapplication.ui.fooddetail.FoodDetailAdapter;
 import com.truong.foodapplication.ui.fooddetail.FoodDetailFragment;
-import com.truong.foodapplication.ui.fooddetail.FoodDetailViewModel;
 import com.truong.foodapplication.ui.home.HomeFragment;
-import com.truong.foodapplication.ui.notification.NotificationFragment;
+import com.truong.foodapplication.ui.purchase.PurchaseAdapter;
+import com.truong.foodapplication.ui.purchase.PurchaseFragment;
+import com.truong.foodapplication.ui.purchase.PurchaseViewModel;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationDetailFragment extends Fragment {
+public class PaymentHistoryFragment extends Fragment {
 
-    private NotificationDetailViewModel mViewModel;
-    private FragmentNotificationDetailBinding binding;
-    private BaseMainActivityViewModel baseMainActivityViewModel;
-    private int position;
-    public static NotificationDetailFragment newInstance() {
-        return new NotificationDetailFragment();
+    private PaymentHistoryViewModel mViewModel;
+    private FragmentPaymentHistoryBinding binding;
+    public static PaymentHistoryFragment newInstance() {
+        return new PaymentHistoryFragment();
     }
+    private RecyclerView recyclerView;
+    private BaseMainActivityViewModel baseMainActivityViewModel;
+    private PaymentHistoryAdapter paymentHistoryAdapter;
+    private List<PurchaseItem> mData = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentNotificationDetailBinding.inflate(inflater, container, false);
+        binding = FragmentPaymentHistoryBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
         baseMainActivityViewModel = new ViewModelProvider(requireActivity()).get(BaseMainActivityViewModel.class);
-        mViewModel = new NotificationDetailViewModel(baseMainActivityViewModel);
+        mViewModel = new PaymentHistoryViewModel(baseMainActivityViewModel);
 
         BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_navigation);
         navBar.setVisibility(View.GONE);
 
-        mViewModel.getPosition().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                position = integer;
-            }
-        });
+        recyclerView = binding.historyRecycleview;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mViewModel.getSharedNotificationData().observe(getViewLifecycleOwner(), new Observer<List<Notification>>() {
+        // Khởi tạo adapter một lần duy nhất
+        paymentHistoryAdapter = new PaymentHistoryAdapter(getActivity(), new ArrayList<>());
+        paymentHistoryAdapter.setClickListener(PaymentHistoryFragment.this::onItemClick);
+        recyclerView.setAdapter(paymentHistoryAdapter);
+
+        mViewModel.getOrderHistory().observe(requireActivity(), new Observer<List<PurchaseItem>>() {
             @Override
-            public void onChanged(List<Notification> notificationList) {
-                if (notificationList != null){
-                    binding.notificationDetailName.setText(notificationList.get(position).getName());
-                    binding.notificationDetailContext.setText(notificationList.get(position).getContext());
-                } else {
-                    Log.e(TAG, "Chưa nhận được dữ liệu!");
-                }
+            public void onChanged(List<PurchaseItem> purchaseItems) {
+                mData = purchaseItems;
+                paymentHistoryAdapter.updateData(mData);
             }
         });
         return view;
+    }
+    private void onItemClick(View view, int i) {
     }
 
     @Override
@@ -90,8 +88,8 @@ public class NotificationDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.BackBtn.setOnClickListener(v -> {
-            NotificationFragment notificationFragment = NotificationFragment.newInstance();
-            changeFragment(notificationFragment);
+            HomeFragment homeFragment = HomeFragment.newInstance();
+            changeFragment(homeFragment);
         });
     }
     public void changeFragment(Fragment fragment){
@@ -105,6 +103,6 @@ public class NotificationDetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mViewModel.getSharedNotificationData().removeObservers(this);
+        mViewModel.getOrderHistory().removeObservers(this);
     }
 }

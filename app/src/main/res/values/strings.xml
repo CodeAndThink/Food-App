@@ -33,4 +33,5 @@
     <string name="more_detail">More detail!</string>
     <string name="msg_token_fmt">%1$s</string>
     <string name="total">Total:</string>
+    <string name="payment_history">Payment History</string>
 </resources>

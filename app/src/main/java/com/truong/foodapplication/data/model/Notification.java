@@ -1,6 +1,5 @@
 package com.truong.foodapplication.data.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Notification {

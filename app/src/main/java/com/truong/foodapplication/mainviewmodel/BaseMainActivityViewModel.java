@@ -32,6 +32,7 @@ public class BaseMainActivityViewModel extends ViewModel {
     private MutableLiveData<Integer> position = new MutableLiveData<>();
     private MutableLiveData<List<Notification>> sharedNotificationData = new MutableLiveData<>();
     private MutableLiveData<List<Item>>  purchaseItems = new MutableLiveData<>(new ArrayList<>());
+    private MutableLiveData<List<PurchaseItem>> order_history = new MutableLiveData<>(new ArrayList<>());
     private FoodsRepository foodsRepository;
 
     public BaseMainActivityViewModel(BaseMainActivity baseMainActivity, User user) {
@@ -40,11 +41,13 @@ public class BaseMainActivityViewModel extends ViewModel {
         sharedViewModel.setSharedData(user);
         setSharedFoodData();
         setSharedNotificationData();
+        setOrderHistory();
     }
     public BaseMainActivityViewModel(){
         foodsRepository = new FoodsRepository();
         setSharedFoodData();
         setSharedNotificationData();
+        setOrderHistory();
     }
     public LiveData<Boolean> setPurchasePayment(){
         MutableLiveData<Boolean> state = new MutableLiveData<>();
@@ -108,7 +111,18 @@ public class BaseMainActivityViewModel extends ViewModel {
     public LiveData<Integer> getPosition(){
         return position;
     }
-
+    public void setOrderHistory(){
+        foodsRepository.loadPaymentHistory();
+        foodsRepository.getOrderPayment().observeForever(new Observer<List<PurchaseItem>>() {
+            @Override
+            public void onChanged(List<PurchaseItem> items) {
+                order_history.setValue(items);
+            }
+        });
+    }
+    public LiveData<List<PurchaseItem>> getOrderHistory(){
+        return order_history;
+    }
 }
 
 

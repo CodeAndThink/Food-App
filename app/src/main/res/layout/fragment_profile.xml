@@ -9,13 +9,13 @@
     android:background="@color/very_light_orange">
     <LinearLayout
         android:id="@+id/user_information_textbox_group"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:background="@color/white"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        android:layout_above="@id/update_user_information_btn">
         <TextView
             style="@style/label_textbox"
             android:text="@string/hint_displayname"
@@ -47,11 +47,19 @@
         android:id="@+id/update_user_information_btn"
         style="@style/option_button"
         android:src="@drawable/pen"
-        android:layout_below="@id/user_information_textbox_group"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:elevation="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/rough_button"/>
+        android:background="@drawable/rough_button"
+        android:layout_above="@id/payment_history_btn"/>
+    <Button
+        android:id="@+id/payment_history_btn"
+        style="@style/big_button"
+        android:layout_above="@+id/delete_user_btn"
+        android:backgroundTint="@color/white"
+        android:elevation="10dp"
+        android:text="@string/payment_history"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/delete_user_btn"

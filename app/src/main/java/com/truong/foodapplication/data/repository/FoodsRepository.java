@@ -29,6 +29,7 @@ import com.truong.foodapplication.data.model.User;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FoodsRepository {
     private FirebaseFirestore db;
@@ -36,14 +37,17 @@ public class FoodsRepository {
     private FirebaseUser firebaseUser;
     private MutableLiveData<List<Food>> foods;
     private MutableLiveData<List<Notification>> notifications;
+    private MutableLiveData<List<PurchaseItem>> order_history;
 
     public FoodsRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         long accountCreationDate = currentUser.getMetadata().getCreationTimestamp();
-        db = FirebaseFirestore.getInstance();
         notifications = new MutableLiveData<>();
+        order_history = new MutableLiveData<>();
         loadNotification(accountCreationDate);
+        loadPaymentHistory();
     }
 
     public LiveData<List<Food>> getFoods() {
@@ -55,6 +59,9 @@ public class FoodsRepository {
     }
     public LiveData<List<Notification>> getNotification(){
         return notifications;
+    }
+    public LiveData<List<PurchaseItem>> getOrderPayment(){
+        return order_history;
     }
 
     private void loadFoods() {
@@ -78,7 +85,7 @@ public class FoodsRepository {
     }
     private void loadNotification(long accountCreationDate) {
         db.collection("notifications")
-//                .whereGreaterThan("date", accountCreationDate)
+//                .whereLessThan("date", accountCreationDate)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -120,5 +127,30 @@ public class FoodsRepository {
                     }
                 });
         return state;
+    }
+    public void loadPaymentHistory() {
+        db.collection("orders_history")
+                .whereEqualTo("userName", Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<PurchaseItem> purchaseItemList = new ArrayList<>();
+                            for (DocumentSnapshot document : task.getResult()) {
+                                PurchaseItem purchaseItem = document.toObject(PurchaseItem.class);
+                                purchaseItemList.add(purchaseItem);
+                            }
+                            if (purchaseItemList != null){
+                                order_history.postValue(purchaseItemList);
+                                Log.e(TAG, "Get data successfully!");
+                            }else {
+                                Log.e(TAG, "No data!", task.getException());
+                            }
+                        } else {
+                            Log.e(TAG, "Get data failed!", task.getException());
+                        }
+                    }
+                });
     }
 }

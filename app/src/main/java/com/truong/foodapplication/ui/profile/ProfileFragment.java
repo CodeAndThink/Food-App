@@ -25,6 +25,7 @@ import com.truong.foodapplication.databinding.FragmentProfileBinding;
 import com.truong.foodapplication.mainviewmodel.BaseMainActivityViewModel;
 import com.truong.foodapplication.ui.LoginActivity;
 import com.truong.foodapplication.ui.changepassword.ChangeInformationFragment;
+import com.truong.foodapplication.ui.paymenthistory.PaymentHistoryFragment;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
@@ -60,16 +61,31 @@ public class ProfileFragment extends Fragment {
             profileViewModel.deleteUser();
         });
         binding.updateUserInformationBtn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new ChangeInformationFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            ChangeInformationFragment changeInformationFragment = new ChangeInformationFragment();
+            changeFragment(changeInformationFragment);
         });
         binding.logoutBtn.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), LoginActivity.class);
             startActivity(intent);
             requireActivity().finish();
         });
+        binding.paymentHistoryBtn.setOnClickListener(v -> {
+            PaymentHistoryFragment paymentHistoryFragment = new PaymentHistoryFragment();
+            changeFragment(paymentHistoryFragment);
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        baseMainActivityViewModel.getSharedUserData().removeObservers(getViewLifecycleOwner());
+    }
+
+    public void changeFragment(Fragment fragment){
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

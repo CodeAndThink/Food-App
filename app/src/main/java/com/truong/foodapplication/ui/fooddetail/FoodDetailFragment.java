@@ -128,6 +128,7 @@ public class FoodDetailFragment extends Fragment {
             double sum = price * quantity;
             DecimalFormat df = new DecimalFormat("#.#"); // Định dạng để giữ lại hai chữ số sau dấu thập phân
             String formattedNumber = df.format(sum);
+            binding.foodDetailQuatity.setText(String.valueOf(quantity));
             binding.foodDetailPrice.setText(formattedNumber);
         });
         binding.foodDetailMinusBtn.setOnClickListener(v -> {
@@ -138,6 +139,7 @@ public class FoodDetailFragment extends Fragment {
             double sum = price * quantity;
             DecimalFormat df = new DecimalFormat("#.#"); // Định dạng để giữ lại hai chữ số sau dấu thập phân
             String formattedNumber = df.format(sum);
+            binding.foodDetailQuatity.setText(String.valueOf(quantity));
             binding.foodDetailPrice.setText(formattedNumber);
         });
         binding.BackBtn.setOnClickListener(v -> {

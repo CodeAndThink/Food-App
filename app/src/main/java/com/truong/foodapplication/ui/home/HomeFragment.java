@@ -112,4 +112,11 @@ public class HomeFragment extends Fragment implements HomeAdapter.ItemClickListe
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.getSharedFoodData().removeObservers(this);
+        mViewModel.getSharedUserData().removeObservers(this);
+    }
 }

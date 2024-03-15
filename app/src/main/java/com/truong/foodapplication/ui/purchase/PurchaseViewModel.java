@@ -25,9 +25,9 @@ public class PurchaseViewModel extends ViewModel {
     private BaseMainActivityViewModel baseMainActivityViewModel;
     public PurchaseViewModel(BaseMainActivityViewModel baseMainActivityViewModel) {
         this.baseMainActivityViewModel = baseMainActivityViewModel;
+        baseMainActivityViewModel.setOrderHistory();
     }
     public PurchaseViewModel(){
-
     }
     public LiveData<User> getSharedUserData() {
         return userSharedData;

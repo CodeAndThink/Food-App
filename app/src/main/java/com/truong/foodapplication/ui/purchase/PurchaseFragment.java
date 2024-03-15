@@ -88,16 +88,19 @@ public class PurchaseFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.purchaseBtn.setOnClickListener(v -> {
-            mViewModel.setPayment().observe(requireActivity(), new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    if (aBoolean){
-                        Toast.makeText(requireActivity(), getString(R.string.order_success), Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(requireActivity(), getString(R.string.order_false), Toast.LENGTH_SHORT).show();
+            if (mData!=null){
+                mViewModel.setPayment().observe(requireActivity(), new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if (aBoolean){
+                            Toast.makeText(requireActivity(), getString(R.string.order_success), Toast.LENGTH_SHORT).show();
+                            binding.cancelPurchaseBtn.callOnClick();
+                        }else {
+                            Toast.makeText(requireActivity(), getString(R.string.order_false), Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            }
         });
         binding.BackBtn.setOnClickListener(v -> {
             FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
@@ -108,6 +111,13 @@ public class PurchaseFragment extends Fragment{
             changeFragment(homeFragment);
         });
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.getShoppingItem().removeObservers(this);
+    }
+
     public void changeFragment(Fragment fragment){
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

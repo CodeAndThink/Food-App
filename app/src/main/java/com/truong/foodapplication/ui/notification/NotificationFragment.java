@@ -100,4 +100,10 @@ public class NotificationFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.getSharedNotificationData().removeObservers(this);
+    }
 }
